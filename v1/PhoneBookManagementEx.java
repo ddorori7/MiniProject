@@ -1,18 +1,20 @@
 package v1;
 
-import java.io.Writer;
+
+
+
 import java.util.Scanner;
 
 
 
-public class DirectoryManagementEx {
-	static String filePath = "directoryData.txt";
+public class PhoneBookManagementEx {
+	
 	static Scanner sc = new Scanner(System.in);
-	static Writer fileWriter = null;
+
 	
 	
 	public static void main(String[] args) {
-		
+	
 		
 		
 		
@@ -69,16 +71,25 @@ public class DirectoryManagementEx {
 		
 	
 		
-		
-		
 	}
 	
 	public static void delete() { // 삭제
-		
+		Contact[] phoneBooks = load();
+		// 삭제
+		save(phoneBooks);
 	}
 	
 	public static void search() { // 검색
 		
+		
 	}
+	
+	public static Contact[] load() {
+		return null; //파일에서 읽어옴
+		
+	}
+	
+	public static void save(Contact[] contacts) { // 파일에 다시 저장함
 
+	}	
 }

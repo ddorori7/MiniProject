@@ -1,12 +1,12 @@
 package v1;
 
-public class Directory {
+public class Contact {
 
 	String name;
 	String hp;
 	String tel;
 	
-	public Directory(String name, String hp, String tel) {
+	public Contact(String name, String hp, String tel) {
 		this.name = name;
 		this.hp = hp;
 		this.tel = tel;
