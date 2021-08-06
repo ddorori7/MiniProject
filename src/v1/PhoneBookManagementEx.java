@@ -15,7 +15,9 @@ public class PhoneBookManagementEx {
 
 	static Scanner sc = new Scanner(System.in);
 	static ArrayList<Contact> contacts = new ArrayList<>();
-
+	static String rootPath = System.getProperty("user.dir");
+	static String target = rootPath + "\\src\\v1\\ContactData.txt"; 
+	// ContactData.txt 경로
 	public static void main(String[] args) {
 		
 		load(); // ContactData.txt 파일 불러오기
@@ -34,6 +36,7 @@ public class PhoneBookManagementEx {
 			} catch (Exception e){
 				String err = sc.nextLine();
 			}
+			
 			switch (menuNum) {
 			case 1: // 리스트 목록
 				printList(contacts);
@@ -122,7 +125,7 @@ public class PhoneBookManagementEx {
 	} //printList end
 
 	public static void load() {
-		File file = new File(System.getProperty("user.dir") + "\\src\\v1\\ContactData.txt");
+		File file = new File(target);
 		try { // 파일을 불러와서
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
@@ -142,8 +145,7 @@ public class PhoneBookManagementEx {
 	
 	public static void save() {
 		try {
-			FileWriter fw = new FileWriter(System.getProperty("user.dir") 
-					+ "\\src\\v1\\ContactData.txt", false);
+			FileWriter fw = new FileWriter(target, false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (int i =0; i < contacts.size(); i++) {
 				Contact contact = contacts.get(i);
