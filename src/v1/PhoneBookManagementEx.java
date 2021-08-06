@@ -74,9 +74,15 @@ public class PhoneBookManagementEx {
 		System.out.print(">집전화: ");
 		String tel = sc.next();
 
-		Contact newContact = new Contact(name, hp, tel);
-		contacts.add(newContact);
-		System.out.println("[등록되었습니다]");
+		if(name.contains(",") || hp.contains(",") || tel.contains(",")) {
+			System.out.println(",를 제외하고 다시 입력해주세요.");
+			addList();
+		} else {
+			Contact newContact = new Contact(name, hp, tel);
+			contacts.add(newContact);
+			System.out.println("[등록되었습니다]");
+		}
+		
 	} // addList() end
 
 	public static void delete() { // 삭제
@@ -116,7 +122,7 @@ public class PhoneBookManagementEx {
 	} //printList end
 
 	public static void load() {
-		File file = new File(System.getProperty("user.dir") + "\\v1\\ContactData.txt");
+		File file = new File(System.getProperty("user.dir") + "\\src\\v1\\ContactData.txt");
 		try { // 파일을 불러와서
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
@@ -137,7 +143,7 @@ public class PhoneBookManagementEx {
 	public static void save() {
 		try {
 			FileWriter fw = new FileWriter(System.getProperty("user.dir") 
-					+ "\\v1\\ContactData.txt", false);
+					+ "\\src\\v1\\ContactData.txt", false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			for (int i =0; i < contacts.size(); i++) {
 				Contact contact = contacts.get(i);
@@ -148,7 +154,7 @@ public class PhoneBookManagementEx {
 				
 				StringJoiner strJoiner = new StringJoiner(",");
 				
-				strJoiner.add(name);
+				strJoiner.add(name); 
 				strJoiner.add(hp);
 				strJoiner.add(tel);
 				bw.write(strJoiner.toString()+"\n");

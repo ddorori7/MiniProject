@@ -36,8 +36,6 @@ public class Contact {
 		this.tel = tel;
 	}
 	
-
-	
 	
 	
 	
