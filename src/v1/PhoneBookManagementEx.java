@@ -110,7 +110,7 @@ public class PhoneBookManagementEx {
 		printList(result);
 	} // search() end
 
-	public static void printList(ArrayList<Contact> con) {
+	public static void printList(ArrayList<Contact> con) { // 리스트 출력
 		if (con.size() < 1) {
 			System.out.println("결과가 없습니다.");
 		} else {
@@ -124,7 +124,7 @@ public class PhoneBookManagementEx {
 		}
 	} //printList end
 
-	public static void load() {
+	public static void load() { // ContactData.txt 불러오기
 		File file = new File(target);
 		try { // 파일을 불러와서
 			FileReader fr = new FileReader(file);
@@ -143,7 +143,7 @@ public class PhoneBookManagementEx {
 		}
 	} // load() end
 	
-	public static void save() {
+	public static void save() { // ContactData.txt 저장하기
 		try {
 			FileWriter fw = new FileWriter(target, false);
 			BufferedWriter bw = new BufferedWriter(fw);
