@@ -1,4 +1,4 @@
-package v1;
+package phonebook.v1;
 
 
 public class Contact {
