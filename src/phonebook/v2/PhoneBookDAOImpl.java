@@ -65,26 +65,134 @@ public class PhoneBookDAOImpl implements PhoneBookDAO {
 
 	@Override
 	public List<PhoneBookVO> search(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<PhoneBookVO> list = new ArrayList<PhoneBookVO>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "SELECT id, name, hp, tel" + 
+						" FROM phone_book " + 
+						" WHERE name LIKE ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(2, "%" + keyword + "%");
+			
+			rs = pstmt.executeQuery();
+			
+			// ResultSet -> List 변환
+			while (rs.next()) {
+				Long id = rs.getLong(1);
+				String name = rs.getString(2);
+				String hp = rs.getString(3);
+				String tel = rs.getString(4);
+				
+				PhoneBookVO vo = new PhoneBookVO(id, name, hp, tel);
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	} // search(String keyword) end
 
+	
 	@Override
 	public boolean insert(PhoneBookVO vo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int insertedCount = 0;
+		
+		try {
+			conn = getConnection();
+			// 실행 계획
+			String sql = "INSERT INTO phone_book " + 
+						" VALUES(seq_phone_book.NEXTVAL, ?, ?)";
+			pstmt = conn.prepareStatement(sql); // 준비
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getHp());
+
+			insertedCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 1 == insertedCount;
+	} // insert(PhoneBookVO vo) end
+	
+	
 
 	@Override
-	public boolean update(PhoneBookVO vo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean update(PhoneBookVO vo) { // 추가
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int updatedCount = 0;
+		
+		try {
+			conn = getConnection();
+			String sql = "UPDATE phone_book SET name = ?, hp = ? " + 
+							" WHERE id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getHp());
+			pstmt.setString(3, vo.getTel());
 
+			updatedCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 1 == updatedCount;
+	} // update(PhoneBookVO vo) end
+
+	
+	
+	
 	@Override
 	public boolean delete(Long id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int deletedCount = 0;
+		
+		try {
+			conn = getConnection();
+			String sql = "DELETE FROM phone_book " + " WHERE id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, id);
+
+			deletedCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return 1 == deletedCount;
+	} // delete(Long id) end
 
 }
