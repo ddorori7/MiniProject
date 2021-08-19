@@ -15,6 +15,7 @@ public class PhoneBookDAOImpl implements PhoneBookDAO {
 			conn = DriverManager.getConnection(dburl, "C##BITUSER", "bituser");
 		} catch (ClassNotFoundException e) {
 			System.err.println("드라이버 로드 실패!");
+			e.printStackTrace();
 		}
 		return conn;
 	} // getConnection() end
